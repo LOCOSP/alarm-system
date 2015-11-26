@@ -1,8 +1,9 @@
-#!/bin/sh
-
+#!/bin/bash
 echo alarm | /usr/bin/logger
 
-if [ ! -f "/var/lib/alarm/rozbrojony" ];
+if [ ! -f "/tmp/Disarmed" ];
 then
-  echo "WLAMANIE!" |  /usr/bin/gammu-smsd-inject "TEXT PHONE NUMBER"
+ /usr/bin/gammu-smsd-inject \
+      TEXT PhoneNumberHere -text "!! WLAMANIE !!" \
+      | /usr/bin/logger
 fi
