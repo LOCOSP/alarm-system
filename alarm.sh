@@ -1,9 +1,13 @@
 #!/bin/bash
-echo alarm | /usr/bin/logger
 
-if [ ! -f "/tmp/Disarmed" ];
+NUMBER=${NUMBER:-601601601}
+MESSAGE=${MESSAGE:-Wykryto ruch}
+
+echo ${*} | /usr/bin/logger
+
+if [ ! -f "/tmp/disarmed" ];
 then
- /usr/bin/gammu-smsd-inject \
-      TEXT PhoneNumberHere -text "!! WLAMANIE !!" \
-      | /usr/bin/logger
+  /usr/bin/gammu-smsd-inject \
+    TEXT ${NUMBER} -text "${MESSAGE}. $(uptime)" \
+    | /usr/bin/logger
 fi
