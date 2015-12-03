@@ -17,6 +17,17 @@ then
   /usr/bin/gammu-smsd-inject \
     TEXT $from -text "Pong: $(uptime)" \
     | /usr/bin/logger
+elif [ "$message" = "Help" ];
+then
+  echo "Dostalem Help - wysylam objasnienia opcji..." | /usr/bin/logger
+  /usr/bin/gammu-smsd-inject \
+    TEXT $from -len 500 -text  "Oto lista dostępnych dla Ciebie opcji, wyslij sms o tresci:
+    (Help) aby otrzymac ta wiadomosc.
+    (Disarm) aby rozbroic system alarmowy.
+    (Arm) aby uzbroic system alarmowy.
+    (Ping) aby sprawdzic czas pracy systemu.
+    Pamietaj, wielkosc liter ma znaczenie!" \
+    | /usr/bin/logger
 else
    echo "Dostalem nieznane polecenie - olewam..." | /usr/bin/logger
 fi
